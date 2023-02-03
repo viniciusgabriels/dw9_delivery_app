@@ -18,10 +18,13 @@ class ShoppingBagWidget extends StatelessWidget {
     final navigator = Navigator.of(context);
     final sp = await SharedPreferences.getInstance();
     if (!sp.containsKey('accessToken')) {
-      //envio para o login
       final LoginResult = await navigator.pushNamed('/auth/login');
+      //premature return
+      if (LoginResult == null || LoginResult == false) {
+        return;
+      }
     }
-    //envio para o order
+    await navigator.pushNamed('/order', arguments: bag);
   }
 
   @override
