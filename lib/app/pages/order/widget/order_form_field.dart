@@ -39,6 +39,8 @@ class OrderFormField extends StatelessWidget {
             ),
           ),
           TextFormField(
+            validator: validator,
+            controller: controller,
             decoration: InputDecoration(
               hintText: hintText,
               border: defaultBorder,

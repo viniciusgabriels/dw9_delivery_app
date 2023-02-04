@@ -95,6 +95,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                             },
                           ),
                         ),
+                        obscureText: _showPassword == false ? true : false,
                         controller: _passwordController,
                         validator: Validatorless.required('Senha obrigatória'),
                       ),
