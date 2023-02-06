@@ -3,7 +3,9 @@ import 'package:dw9_delivery_app/app/core/extensions/formatter_extension.dart';
 import 'package:dw9_delivery_app/app/core/ui/helpers/size_extensions.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
+import 'package:dw9_delivery_app/app/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShoppingBagWidget extends StatelessWidget {
@@ -16,6 +18,7 @@ class ShoppingBagWidget extends StatelessWidget {
 
   Future<void> _goOrder(BuildContext context) async {
     final navigator = Navigator.of(context);
+    final controller = context.read<HomeController>();
     final sp = await SharedPreferences.getInstance();
     if (!sp.containsKey('accessToken')) {
       final LoginResult = await navigator.pushNamed('/auth/login');
@@ -24,7 +27,8 @@ class ShoppingBagWidget extends StatelessWidget {
         return;
       }
     }
-    await navigator.pushNamed('/order', arguments: bag);
+    final updatebag = await navigator.pushNamed('/order', arguments: bag);
+    controller.updateBag(updatebag as List<OrderProductDto>);
   }
 
   @override
